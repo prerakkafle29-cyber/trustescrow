@@ -267,21 +267,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
                 ],
               ),
+                   if (_escrows.isEmpty)
+          const Padding(
+            padding: EdgeInsets.all(32),
+            child: Center(
+              child: Text('No active escrows yet. Tap + New Escrow to start.'),
             ),
-            const SizedBox(height: 24),
-            Text('Active Escrows', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 12),
-            if (_escrows.isEmpty)
-              const Center(
-                padding: EdgeInsets.all(32),
-                child: Text('No active escrows yet. Tap + New Escrow to start.'),
-              )
-            else
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: _escrows.length,
-                itemBuilder: (context, index) {
+          )
+        else
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _escrows.length,
+            itemBuilder: (context, index) {
+ 
+  
+    
+    
+      
+    
+  
+
+        
+                
                   final escrow = _escrows[index];
                   return Card(
                     margin: const EdgeInsets.only(bottom: 12),
