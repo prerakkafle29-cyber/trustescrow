@@ -24,9 +24,6 @@ class TrustEscrowApp extends StatelessWidget {
   }
 }
 
-// -----------------------------------------------------------------------------
-// MODELS
-// -----------------------------------------------------------------------------
 enum EscrowRole { buyer, seller }
 enum EscrowStatus { pending, funded, completed, disputed }
 
@@ -48,9 +45,6 @@ class EscrowTransaction {
   });
 }
 
-// -----------------------------------------------------------------------------
-// 1. SIGN IN / REGISTER SCREEN
-// -----------------------------------------------------------------------------
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -71,7 +65,6 @@ class _AuthScreenState extends State<AuthScreen> {
       );
       return;
     }
-    // Navigate to Dashboard upon Sign In / Register
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -162,9 +155,6 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 }
 
-// -----------------------------------------------------------------------------
-// 2. DASHBOARD SCREEN
-// -----------------------------------------------------------------------------
 class DashboardScreen extends StatefulWidget {
   final String userName;
   const DashboardScreen({super.key, required this.userName});
@@ -250,7 +240,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Balance Card
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -267,29 +256,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
                 ],
               ),
-                   if (_escrows.isEmpty)
-          const Padding(
-            padding: EdgeInsets.all(32),
-            child: Center(
-              child: Text('No active escrows yet. Tap + New Escrow to start.'),
             ),
-          )
-        else
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _escrows.length,
-            itemBuilder: (context, index) {
- 
-  
-    
-    
-      
-    
-  
-
-        
-                
+            const SizedBox(height: 24),
+            Text('Active Escrows', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 12),
+            if (_escrows.isEmpty)
+              const Padding(
+                padding: EdgeInsets.all(32),
+                child: Center(
+                  child: Text('No active escrows yet. Tap + New Escrow to start.'),
+                ),
+              )
+            else
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _escrows.length,
+                itemBuilder: (context, index) {
                   final escrow = _escrows[index];
                   return Card(
                     margin: const EdgeInsets.only(bottom: 12),
@@ -329,7 +312,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ],
                           ),
                           const Divider(),
-                          // Action buttons based on state
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -368,9 +350,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 }
 
-// -----------------------------------------------------------------------------
-// 3. CREATE NEW ESCROW MODAL SHEET
-// -----------------------------------------------------------------------------
 class CreateEscrowSheet extends StatefulWidget {
   final Function(EscrowTransaction) onAdd;
   const CreateEscrowSheet({super.key, required this.onAdd});
@@ -425,7 +404,6 @@ class _CreateEscrowSheetState extends State<CreateEscrowSheet> {
         children: [
           Text('Create New Escrow', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
-          // Role Selection
           Row(
             children: [
               const Text('My Role: ', style: TextStyle(fontWeight: FontWeight.bold)),
